@@ -1,4 +1,0 @@
-{
-    "{{ tun0_vti }}": { "description": "Static Route to BGP Peer ch02 on tun0", "address": [ "169.254.{{ local_octetid }}.2/30" ], "mtu": "1436" },
-    "{{ tun1_vti }}": { "description": "Static Route to BGP Peer ch02 on tun1", "address": [ "169.254.{{ local_octetid }}.6/30" ], "mtu": "1436" }
-}

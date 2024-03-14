@@ -1,4 +1,0 @@
-{
-    "169.254.{{ local_octetid }}.1": { "remote-as": "{{ remote_asn }}", "description": "{{ remote_site }}.tun0", "ebgp-multihop": "4", "route-map": { "import": "{{ local_site }}in", "export": "{{ local_site }}out" }, "weight": "{{ tun0_bgp_weight }}", "metric": "{{ tun0_bgp_metric }}", "soft-reconfiguration": "inbound" },
-    "169.254.{{ local_octetid }}.5": { "remote-as": "{{ remote_asn }}", "description": "{{ remote_site }}.tun1", "ebgp-multihop": "4", "route-map": { "import": "{{ local_site }}in", "export": "{{ local_site }}out" }, "weight": "{{ tun1_bgp_weight }}", "metric": "{{ tun1_bgp_metric }}", "soft-reconfiguration": "inbound" }
-}
