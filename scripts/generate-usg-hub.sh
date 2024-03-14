@@ -151,6 +151,6 @@ done < <(tail -n +2 "$csv_file")
 
 echo "###################################"
 # Output JSON file
-echo "Output: ${output_folder}/hub-${hub_sitename}.json"
-echo "$config" > "${output_folder}/hub-${hub_sitename}.json"
+echo "Output: ${output_folder}/${hub_sitename}.json"
+echo "$config" > "${output_folder}/${hub_sitename}.json"
 echo "###################################"
