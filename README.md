@@ -64,7 +64,7 @@ To log in to SSH on your controller, follow these steps:
 
 4. Once authenticated, you will be logged in to your controller via SSH. You should now see a BASH command prompt, indicating that you have successfully connected. Looking like this:
     ```
-    root@UNIFICONTROLLERXXX>
+    root@CLOUDKEY:~# 
     ```
 
 5. Download this repo to your current directory:
@@ -197,22 +197,21 @@ STEPS:
   
   Suggest you search around on [https://community.ui.com](https://community.ui.com) for troubleshooting assistance/tips/help/guides. 
 
-- Check BGP
+- Check BGP neighbours are UP and communicating
   ```
-  ssh ubnt@ip.of.cloudkey.controller  # > login
-  ubnt@CLOUDKEY:~# show ip bgp summary
-  admin@bgp3:~$ show ip bgp summary
-  BGP router identifier x.x.x.x, local AS number myas
+  ssh ubnt@ip.of.cloudkey.controller
+  ubnt@CLOUDKEY:~$ show ip bgp summary
+  BGP router identifier x.x.x.x, local AS number 65100
   BGP table version is 8982568
   143970 BGP AS-PATH entries
   4689 BGP community entries
-  Neighbor                 V  AS       MsgRcv    MsgSen  TblVer   InQ   OutQ    Up/Down   State/PfxRcd
-  169.253.101.2            4  65101    791087    1058117 8982559  0      0     1d08h51m         290719
-  169.253.101.6            4  65101	 9287      8282    8982497  0      0     1d08h52m              4
-  169.253.102.2            4  65102	 1252789   8293    8982536  0      0     1d08h52m         109673
-  169.253.102.6            4  65102	 1159392   8293    8982469  0      0     1d08h52m         108007
-  169.253.103.2            4  65103	 9274      8282    8982559  0      0     1d08h52m              4
-  169.253.103.6            4  65103	 620       22      0        0      0     never              Idle
+  Neighbor          V  AS       MsgRcv    MsgSen  TblVer   InQ   OutQ   Up/Down    State/PfxRcd
+  169.253.101.2     4  65101    791087    1058117 8982559  0      0     1d08h51m         290719
+  169.253.101.6     4  65101    9287      8282    8982497  0      0     1d08h52m              4
+  169.253.102.2     4  65102    1252789   8293    8982536  0      0     1d07h12m         109673
+  169.253.102.6     4  65102    1159392   8293    8982469  0      0     1d07h13m         108007
+  169.253.103.2     4  65103    9274      8282    8982559  0      0     1d00h22m              4
+  169.253.103.6     4  65103    620       22      0        0      0     never              Idle
   ```
   Again in my example above, the peer `169.254.103.6` is not connected, we are idle.
 
