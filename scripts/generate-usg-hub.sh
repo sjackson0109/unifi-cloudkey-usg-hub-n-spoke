@@ -111,15 +111,15 @@ while IFS=, read -ra row; do
 
     # Process bgp_neighbors for each row in the sheet
     if [ "$total_rows" -ne "1" ] && [ "$row_number" -eq "1" ]; then
-        config=$(sed "s|\"{{ bgp_neighbors }}\"|\"169.254.${local_site}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
-        config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_site}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ bgp_neighbors }}\"|\"169.254.${local_octetid}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
     else
         if [ "$row_number" -ne "$total_rows" ]; then
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_site}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_site}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
         else # Processing the last record, different formatting
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_site}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_site}.6\": $hub_bgp_neighbor1|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.6\": $hub_bgp_neighbor1|g" <<< "$config")
         fi
     fi
 

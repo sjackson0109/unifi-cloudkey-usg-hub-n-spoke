@@ -129,19 +129,21 @@ Secondly, once you uploaded wheel.csv into the ./config directory, you need to u
 ## Symbolic Links (optional)
 If you have worked with manipulating config.gateway.json files in the past, forget the folder-path depends entirely on the short/random site-id value.. it's easy to make a mistake and deploy to the wrong site.
 
-I created some symbolic links (`ln -s ./links/sitename /path`) that look like this:
+I created some symbolic links (`ln -sf "/data/unifi/data/sites/$unifi_site_id" "./links/$local_site"`) that look like this:
 ```
-root@CLOUDKEY:~# ls -l ./links
+root@CLOUDKEY:~# ls -l ./links/
 total 0
+lrwxrwxrwx 1 root root 28 Feb  6 17:26 ch-zur-01 -> /data/unifi/data/sites/e1lfeewy/
+lrwxrwxrwx 1 root root 28 Feb  6 17:26 de-ber-01 -> /data/unifi/data/sites/y599xXc8/
+lrwxrwxrwx 1 root root 28 Feb  6 17:26 de-ber-02 -> /data/unifi/data/sites/awivGr8v/
+lrwxrwxrwx 1 root root 28 Feb  6 17:26 de-min-01 -> /data/unifi/data/sites/l32s9d03/
+lrwxrwxrwx 1 root root 28 Feb  6 17:26 fr-par-01 -> /data/unifi/data/sites/6dho444u/
+lrwxrwxrwx 1 root root 28 Feb  6 17:26 hub -> /data/unifi/data/sites/y80ho7an/
 lrwxrwxrwx 1 root root 28 Feb  6 17:26 uk-lon-01 -> /data/unifi/data/sites/default/
 lrwxrwxrwx 1 root root 28 Feb  6 17:26 uk-lon-02 -> /data/unifi/data/sites/rhuthx8n/
-lrwxrwxrwx 1 root root 28 Feb  6 17:26 hub -> /data/unifi/data/sites/y80ho7an/
-lrwxrwxrwx 1 root root 28 Feb  6 17:26 fr-par01 -> /data/unifi/data/sites/6dho444u/
-lrwxrwxrwx 1 root root 28 Feb  6 17:26 de-ber-01 -> /data/unifi/data/sites/y599xXc8/
-lrwxrwxrwx 1 root root 28 Feb  6 17:27 de-ber-02 -> /data/unifi/data/sites/awivGr8v/
-lrwxrwxrwx 1 root root 28 Feb  6 17:27 de-min-01 -> /data/unifi/data/sites/l32s9d03/
-lrwxrwxrwx 1 root root 28 Feb  6 17:27 ch-zur-01 -> /data/unifi/data/sites/e1lfeewy/
 ```
+
+I created a few useful scripts, checkout `./scripts/check-symbolic-links.sh`, `./scripts/clean-symbolic-links.sh` and `./scripts/create-symbolic-links.sh`.
 
 ## Are there any risks?
 Quite frankly, Yes. If you don't know what you are doing with Ubiquiti devices, or have never really (manually) built IPSEC VPNs, or even had the joy of working with BGP. Then you are not experienced or qualified to be working with this. Your business could cripple to a halt, if you get the design wrong.  Words of advice: take baby steps.

@@ -1,0 +1,94 @@
+{
+  "system": {
+    "host-name": "de-ber-02fw",
+    "offload": { "ipsec": "enable" },
+    "domain-name": "company.com",
+    "name-server": [ "1.1.1.1", "8.8.8.8" ],
+    "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
+    "time-zone": "Europe/London",
+    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } }, "host": { "syslog.company.com:5514": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } } }
+  },
+  "service": {
+    "dns": {
+      "forwarding": { }
+    }
+  },
+  "firewall": {
+    "modify": {
+      "VPN_Gateway": { "rule": { "2502": { "action": "modify", "protocol": "all", "modify": { "table": "5" } }} }
+    }
+  },
+  "vpn": {
+    "ipsec": {
+      "ipsec-interfaces": { "interface": [ "eth2", "eth3" ]},
+      "auto-firewall-nat-exclude": "enable",
+      "ike-group": {  "ikev2-aes256-sha256-dh20-24h": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha256"}}}},
+      "esp-group": {  "esp-sha256-aes256-dh14-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}}},
+      "site-to-site": {
+        "peer": {
+          "wan1.hub.company.com": {  "description": "de-ber-02 to hub tun0",  "authentication": {      "id": "@de-ber-02.tun0", "remote-id": "@hub.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "initiate", "ike-group": "ikev2-aes256-sha256-dh20-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti8", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+          "wan2.hub.company.com": {  "description": "de-ber-02 to hub tun1",  "authentication": {      "id": "@de-ber-02.tun1", "remote-id": "@hub.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "initiate", "ike-group": "ikev2-aes256-sha256-dh20-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti9", "esp-group": "esp-sha256-aes256-dh14-8h" }}
+        }
+      }
+    }
+  },
+  "interfaces": {
+    "ethernet": {
+      "eth0": { "firewall": { "in": { "modify": "VPN_Gateway" } } },
+      "eth1": { "firewall": { "in": { "modify": "VPN_Gateway" } } }
+    },
+    "vti": {
+      "vti8": { "description": "Static Route to BGP Peer hub on tun0", "address": [ "169.254.105.1/30" ], "mtu": "1436" },
+      "vti9": { "description": "Static Route to BGP Peer hub on tun1", "address": [ "169.254.105.5/30" ], "mtu": "1436" }
+    }
+  },
+  "load-balance": {
+    "group": {
+      "wan_failover": {
+        "flush-on-active": "enable",
+        "lb-local-metric-change": "disable",
+        "lb-local": "disable",
+        "interface": {
+          "eth2": {
+            "route-test": { "type": { "ping": { "target": "1.1.1.1" }, "initial-delay": "30", "interval": "30"} },
+            "count": { "failure": "3", "success": "3" }, "weight": "99"
+          },
+          "eth3": {
+            "route-test": { "type": { "ping": { "target": "8.8.8.8" }, "initial-delay": "30", "interval": "30"} },
+            "count": { "failure": "3", "success": "3" }, "weight": "1"
+          }
+        },
+        "sticky": { "dest-addr": "enable", "dest-port": "enable", "source-addr": "disable" }
+      }
+    }
+  },
+  "policy": {
+    "prefix-list": {
+      "de-ber-02in": { "rule": { "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" } }},
+      "de-ber-02out": { "rule": { "10": { "action": "permit", "gt": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" } }}
+    },
+    "route-map": {
+      "de-ber-02out": { "description": "Route Map OUTBOUND", "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "de-ber-02out" } } } } } },
+      "de-ber-02in" : { "description": "Route Map INBOUND" , "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "de-ber-02in"  } } } } } }
+    }
+  },
+  "protocols": {
+    "static": {
+      "interface-route": {
+        "169.254.105.0/30": { "next-hop-interface": "vti8" },
+        "169.254.105.4/30": { "next-hop-interface": "vti9" }
+      }
+    },
+    "bgp": {
+      "65105": {
+        "parameters": { "router-id": "10.70.105.2" },
+        "timers": { "holdtime": "10", "keepalive": "5" },
+        "network": [ "10.105.0.0/16" ],
+        "neighbor": {
+          "169.254.105.1": { "remote-as": "65100", "description": "hub.tun0", "ebgp-multihop": "4", "route-map": { "import": "de-ber-02in", "export": "de-ber-02out" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+          "169.254.105.5": { "remote-as": "65100", "description": "hub.tun1", "ebgp-multihop": "4", "route-map": { "import": "de-ber-02in", "export": "de-ber-02out" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" }
+        }
+      }
+    }
+  }
+}

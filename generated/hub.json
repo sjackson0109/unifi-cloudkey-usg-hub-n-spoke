@@ -1,0 +1,124 @@
+{
+    "system": {
+      "host-name": "hubfw",
+      "offload": { "ipsec": "enable" },
+      "domain-name": "company.com",
+      "name-server": [ "1.1.1.1", "8.8.8.8" ],
+      "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
+      "time-zone": "Europe/London",
+      "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } }, "host": { "syslog.company.com:5514": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } } }
+    },
+    "service": {
+      "gui": { "older-ciphers": "disable" },
+      "dns": {
+        "forwarding": { "options": [ "host-record=unifi,unifi.company.local", "host-record=unifi.{{ domainname }},unifi.company.local" ] }
+      }
+    },
+    "firewall": {
+      "modify": {
+        "VPN_Gateway": { "rule": { "2502": { "action": "modify", "protocol": "all", "modify": { "table": "5" } }} }
+      }
+    },
+    "vpn": {
+      "ipsec": {
+        "ipsec-interfaces": { "interface": [ "eth2", "eth3" ]},
+        "auto-firewall-nat-exclude": "enable",
+        "ike-group": {  "ikev2-aes128-sha1-24h-dh16": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"16","encryption":"aes128","hash":"sha1"}}},  "ikev2-aes128-sha1-24h-dh20": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes128","hash":"sha1"}}},  "ikev2-aes128-sha1-24h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"22","encryption":"aes128","hash":"sha1"}}},  "ikev2-aes128-sha1-8h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"22","encryption":"aes128","hash":"sha1"}}},  "ikev2-aes128-sha1-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes128","hash":"sha1"}}},  "ikev2-aes128-sha256-24h-dh18": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"18","encryption":"aes128","hash":"sha256"}}},  "ikev2-aes128-sha256-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes128","hash":"sha256"}}},  "ikev2-aes256-sha1-24h-dh16": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"16","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-24h-dh18": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"18","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-24h-dh20": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-24h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"22","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-8h-dh16": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"16","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-8h-dh18": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"18","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-8h-dh20": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-8h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"22","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha1-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes256","hash":"sha1"}}},  "ikev2-aes256-sha256-24h-dh18": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"18","encryption":"aes256","hash":"sha256"}}},  "ikev2-aes256-sha256-24h-dh24": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},  "ikev2-aes256-sha256-8h-dh16": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"16","encryption":"aes256","hash":"sha256"}}},  "ikev2-aes256-sha256-8h-dh20": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha256"}}},  "ikev2-aes256-sha256-8h-dh22": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"22","encryption":"aes256","hash":"sha256"}}},  "ikev2-aes256-sha256-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes256","hash":"sha256"}}},  "ikev2-aes256-sha256-dh20-24h": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha256"}}}},
+        "esp-group": {  "esp-sha256-aes256-dh15-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},  "esp-sha256-aes256-dh16-8h": {"compression":"disable","lifetime":"28800","mode":"transport","pfs":"dh-group16","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},  "esp-sha256-aes128-dh14-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes128","hash":"sha256"}}},  "esp-sha256-aes128-dh15-8h": {"compression":"disable","lifetime":"28800","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes128","hash":"sha256"}}},  "esp-sha1-aes256-dh14-8h": {"compression":"disable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha1"}}},  "esp-sha1-aes256-dh16-8h": {"compression":"enable","lifetime":"28800","mode":"transport","pfs":"dh-group16","proposal":{"1":{"encryption":"aes256","hash":"sha1"}}},  "esp-sha1-aes128-dh15-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes128","hash":"sha1"}}},  "esp-sha1-aes128-dh16-8h": {"compression":"disable","lifetime":"28800","mode":"tunnel","pfs":"dh-group16","proposal":{"1":{"encryption":"aes128","hash":"sha1"}}},  "esp-sha256-aes256-dh14-4h": {"compression":"enable","lifetime":"14400","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},  "esp-sha256-aes256-dh14-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},  "esp-sha256-aes256-dh16-12h": {"compression":"disable","lifetime":"43200","mode":"transport","pfs":"dh-group16","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},  "esp-sha1-aes256-dh15-6h": {"compression":"disable","lifetime":"21600","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes256","hash":"sha1"}}},  "esp-sha1-aes128-dh14-10h": {"compression":"enable","lifetime":"36000","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes128","hash":"sha1"}}}},
+        "site-to-site": {
+          "peer": {
+            "uk-lon-01.tun0": {  "description": "hub to uk-lon-01 tun0",  "authentication": {      "id": "@hub.tun0", "remote-id": "@uk-lon-01.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti0", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "uk-lon-01.tun1": {  "description": "hub to uk-lon-01 tun1",  "authentication": {      "id": "@hub.tun1", "remote-id": "@uk-lon-01.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti1", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "uk-lon-02.tun0": {  "description": "hub to uk-lon-02 tun0",  "authentication": {      "id": "@hub.tun0", "remote-id": "@uk-lon-02.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti2", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "uk-lon-02.tun1": {  "description": "hub to uk-lon-02 tun1",  "authentication": {      "id": "@hub.tun1", "remote-id": "@uk-lon-02.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti3", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "fr-par-01.tun0": {  "description": "hub to fr-par-01 tun0",  "authentication": {      "id": "@hub.tun0", "remote-id": "@fr-par-01.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti4", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "fr-par-01.tun1": {  "description": "hub to fr-par-01 tun1",  "authentication": {      "id": "@hub.tun1", "remote-id": "@fr-par-01.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti5", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "de-ber-01.tun0": {  "description": "hub to de-ber-01 tun0",  "authentication": {      "id": "@hub.tun0", "remote-id": "@de-ber-01.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti6", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "de-ber-01.tun1": {  "description": "hub to de-ber-01 tun1",  "authentication": {      "id": "@hub.tun1", "remote-id": "@de-ber-01.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti7", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "de-ber-02.tun0": {  "description": "hub to de-ber-02 tun0",  "authentication": {      "id": "@hub.tun0", "remote-id": "@de-ber-02.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti8", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "de-ber-02.tun1": {  "description": "hub to de-ber-02 tun1",  "authentication": {      "id": "@hub.tun1", "remote-id": "@de-ber-02.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti9", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "de-mun-01.tun0": {  "description": "hub to de-mun-01 tun0",  "authentication": {      "id": "@hub.tun0", "remote-id": "@de-mun-01.tun0",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",  "vti": { "bind": "vti10", "esp-group": "esp-sha256-aes256-dh14-8h" }},
+            "de-mun-01.tun1": {  "description": "hub to de-mun-01 tun1",  "authentication": {      "id": "@hub.tun1", "remote-id": "@de-mun-01.tun1",      "mode": "pre-shared-secret", "pre-shared-secret": "REDACTED"  },  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",  "vti": { "bind": "vti11", "esp-group": "esp-sha256-aes256-dh14-8h" }}
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "ethernet": {
+        "eth0": { "firewall": { "in": { "modify": "VPN_Gateway" } } },
+        "eth1": { "firewall": { "in": { "modify": "VPN_Gateway" } } }
+      },
+      "vti": {
+        "uk-lon-01.tun0": { "description": "Static Route to BGP Peer uk-lon-01 on tun0", "address": [ "169.254.101.2/30" ], "mtu": "1436" },
+        "uk-lon-01.tun1": { "description": "Static Route to BGP Peer uk-lon-01 on tun1", "address": [ "169.254.101.6/30" ], "mtu": "1436" },
+        "uk-lon-02.tun0": { "description": "Static Route to BGP Peer uk-lon-02 on tun0", "address": [ "169.254.102.2/30" ], "mtu": "1436" },
+        "uk-lon-02.tun1": { "description": "Static Route to BGP Peer uk-lon-02 on tun1", "address": [ "169.254.102.6/30" ], "mtu": "1436" },
+        "fr-par-01.tun0": { "description": "Static Route to BGP Peer fr-par-01 on tun0", "address": [ "169.254.103.2/30" ], "mtu": "1436" },
+        "fr-par-01.tun1": { "description": "Static Route to BGP Peer fr-par-01 on tun1", "address": [ "169.254.103.6/30" ], "mtu": "1436" },
+        "de-ber-01.tun0": { "description": "Static Route to BGP Peer de-ber-01 on tun0", "address": [ "169.254.104.2/30" ], "mtu": "1436" },
+        "de-ber-01.tun1": { "description": "Static Route to BGP Peer de-ber-01 on tun1", "address": [ "169.254.104.6/30" ], "mtu": "1436" },
+        "de-ber-02.tun0": { "description": "Static Route to BGP Peer de-ber-02 on tun0", "address": [ "169.254.105.2/30" ], "mtu": "1436" },
+        "de-ber-02.tun1": { "description": "Static Route to BGP Peer de-ber-02 on tun1", "address": [ "169.254.105.6/30" ], "mtu": "1436" },
+        "de-mun-01.tun0": { "description": "Static Route to BGP Peer de-mun-01 on tun0", "address": [ "169.254.106.2/30" ], "mtu": "1436" },
+        "de-mun-01.tun1": { "description": "Static Route to BGP Peer de-mun-01 on tun1", "address": [ "169.254.106.6/30" ], "mtu": "1436" }
+      }
+    },
+    "policy": {
+      "prefix-list": {
+        "hubin": {
+          "rule": {
+            "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" }
+          }
+        },
+        "hubout": {
+          "rule": {
+            "10": { "action": "permit", "gt": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" }
+          }
+        }
+      },
+      "route-map": {
+        "hubout": { "description": "Route Map OUTBOUND", "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "hubout" } } } } } },
+        "hubin" : { "description": "Route Map INBOUND" , "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "hubin"  } } } } } }
+      }
+    },
+    "protocols": {
+      "static": {
+        "interface-route": {
+          "169.254.uk-lon-01.0/30":{ "next-hop-interface": "uk-lon-01.tun0" },
+          "169.254.uk-lon-01.4/30":{ "next-hop-interface": "uk-lon-01.tun1" },
+          "169.254.uk-lon-02.0/30":{ "next-hop-interface": "uk-lon-02.tun0" },
+          "169.254.uk-lon-02.4/30":{ "next-hop-interface": "uk-lon-02.tun1" },
+          "169.254.fr-par-01.0/30":{ "next-hop-interface": "fr-par-01.tun0" },
+          "169.254.fr-par-01.4/30":{ "next-hop-interface": "fr-par-01.tun1" },
+          "169.254.de-ber-01.0/30":{ "next-hop-interface": "de-ber-01.tun0" },
+          "169.254.de-ber-01.4/30":{ "next-hop-interface": "de-ber-01.tun1" },
+          "169.254.de-ber-02.0/30":{ "next-hop-interface": "de-ber-02.tun0" },
+          "169.254.de-ber-02.4/30":{ "next-hop-interface": "de-ber-02.tun1" },
+          "169.254.de-mun-01.0/30":{ "next-hop-interface": "de-mun-01.tun0" },
+          "169.254.de-mun-01.4/30":{ "next-hop-interface": "de-mun-01.tun1" }
+        }
+      },
+      "bgp": {
+        "65100": {
+          "parameters": { "router-id": "10.70.0.1" },
+          "timers": { "holdtime": "10", "keepalive": "5" },
+          "network": [ "10.70.0.0/24", "194.138.39.16/29" ],
+          "neighbor": {
+            "169.254..2": { "remote-as": "65101", "description": "uk-lon-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254..6": { "remote-as": "65101", "description": "uk-lon-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254..2": { "remote-as": "65102", "description": "uk-lon-02.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254..6": { "remote-as": "65102", "description": "uk-lon-02.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254..2": { "remote-as": "65103", "description": "fr-par-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254..6": { "remote-as": "65103", "description": "fr-par-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254..2": { "remote-as": "65104", "description": "de-ber-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254..6": { "remote-as": "65104", "description": "de-ber-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254..2": { "remote-as": "65105", "description": "de-ber-02.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254..6": { "remote-as": "65105", "description": "de-ber-02.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254..2": { "remote-as": "65106", "description": "de-mun-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254..6": { "remote-as": "65106", "description": "de-mun-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" }
+          }
+        }
+      }
+    }
+  }
+  
