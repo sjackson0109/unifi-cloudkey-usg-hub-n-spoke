@@ -1,0 +1,9 @@
+{
+  "description": "{{ remote_site }} to {{ local_site }} tun0",
+  "authentication": {
+      "id": "@{{ remote_site }}.tun0", "remote-id": "@{{ local_site }}.tun0",
+      "mode": "pre-shared-secret", "pre-shared-secret": "{{ tun0_psk }}"
+  },
+  "connection-type": "respond", "ike-group": "ikev2-aes256-sha256-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth2",
+  "vti": { "bind": "{{ tun0_vti }}", "esp-group": "esp-sha256-aes256-dh14-8h" }
+}

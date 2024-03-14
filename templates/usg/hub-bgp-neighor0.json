@@ -1,0 +1,1 @@
+{ "remote-as": "{{ local_asn }}", "description": "{{ local_site }}.tun0", "ebgp-multihop": "4", "route-map": { "import": "{{ remote_site }}in", "export": "{{ remote_site }}out" }, "weight": "{{ tun0_bgp_weight }}", "metric": "{{ tun0_bgp_metric }}", "soft-reconfiguration": "inbound" }

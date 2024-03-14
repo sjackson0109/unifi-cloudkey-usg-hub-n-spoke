@@ -1,0 +1,1 @@
+{ "description": "Static Route to BGP Peer {{ local_site }} on tun1", "address": [ "169.254.{{ local_octetid }}.6/30" ], "mtu": "1436" }

@@ -1,0 +1,91 @@
+{
+  "system": {
+    "host-name": "{{ local_site }}fw",
+    "offload": { "ipsec": "enable" },
+    "domain-name": "{{ domain_name }}",
+    "name-server": [ "1.1.1.1", "8.8.8.8" ],
+    "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
+    "time-zone": "Europe/London",
+    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } }, "host": { "{{ syslog_server }}:5514": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } } }
+  },
+  "service": {
+    "dns": {
+      "forwarding": { }
+    }
+  },
+  "firewall": {
+    "modify": {
+      "VPN_Gateway": { "rule": { "2502": { "action": "modify", "protocol": "all", "modify": { "table": "5" } }} }
+    }
+  },
+  "vpn": {
+    "ipsec": {
+      "ipsec-interfaces": { "interface": [ "eth2", "eth3" ]},
+      "auto-firewall-nat-exclude": "enable",
+      "ike-group": "{{ ike_groups }}",
+      "esp-group": "{{ esp_groups }}",
+      "site-to-site": {
+        "peer": {
+          "{{ ipsec_tunnels }}"
+        }
+      }
+    }
+  },
+  "interfaces": {
+    "ethernet": {
+      "eth0": { "firewall": { "in": { "modify": "VPN_Gateway" } } },
+      "eth1": { "firewall": { "in": { "modify": "VPN_Gateway" } } }
+    },
+    "vti": {
+      "{{ vti_interfaces }}"
+    }
+  },
+  "load-balance": {
+    "group": {
+      "wan_failover": {
+        "flush-on-active": "enable",
+        "lb-local-metric-change": "disable",
+        "lb-local": "disable",
+        "interface": {
+          "eth2": {
+            "route-test": { "type": { "ping": { "target": "1.1.1.1" }, "initial-delay": "30", "interval": "30"} },
+            "count": { "failure": "3", "success": "3" }, "weight": "{{ eth2_percent }}"
+          },
+          "eth3": {
+            "route-test": { "type": { "ping": { "target": "8.8.8.8" }, "initial-delay": "30", "interval": "30"} },
+            "count": { "failure": "3", "success": "3" }, "weight": "{{ eth3_percent }}"
+          }
+        },
+        "sticky": { "dest-addr": "enable", "dest-port": "enable", "source-addr": "disable" }
+      }
+    }
+  },
+  "policy": {
+    "prefix-list": {
+      "{{ local_site }}in": { "rule": { "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" } }},
+      "{{ local_site }}out": { "rule": { "10": { "action": "permit", "gt": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" } }}
+    },
+    "route-map": {
+      "{{ local_site }}out": { "description": "Route Map OUTBOUND", "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "{{ local_site }}out" } } } } } },
+      "{{ local_site }}in" : { "description": "Route Map INBOUND" , "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "{{ local_site }}in"  } } } } } }
+    }
+  },
+  "protocols": {
+    "static": {
+      "interface-route": {
+        "169.254.{{ local_octetid }}.0/30": { "next-hop-interface": "{{ tun0_vti }}" },
+        "169.254.{{ local_octetid }}.4/30": { "next-hop-interface": "{{ tun1_vti }}" }
+      }
+    },
+    "bgp": {
+      "{{ local_asn }}": {
+        "parameters": { "router-id": "10.{{ local_octetid }}.0.1" },
+        "timers": { "holdtime": "10", "keepalive": "5" },
+        "network": [ "{{ local_subnets }}" ],
+        "neighbor": {
+          "{{ bgp_neighbors }}"
+        }
+      }
+    }
+  }
+}

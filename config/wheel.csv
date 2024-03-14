@@ -1,0 +1,8 @@
+local_site,local_octetid,local_subnets,local_asn,eth2_percent,eth3_percent,location,remote_site,remote_asn,tun0_peer,tun0_psk,tun0_vti,tun0_bgp_weight,tun0_bgp_metric,tun1_peer,tun1_psk,tun1_vti,tun1_bgp_weight,tun1_bgp_metric
+uk-lon-01,101,10.101.0.0/16 172.16.0.0/20,65101,99,1,London,hub,65100,wan1.hub.company.com,REDACTED,vti0,200,200,wan2.hub.company.com,REDACTED,vti1,300,300
+uk-lon-02,102,10.102.0.0/16,65102,99,1,London,hub,65100,wan1.hub.company.com,REDACTED,vti2,200,200,wan2.hub.company.com,REDACTED,vti3,300,300
+fr-par-01,103,10.103.0.0/16,65103,99,1,Paris,hub,65100,wan1.hub.company.com,REDACTED,vti4,200,200,wan2.hub.company.com,REDACTED,vti5,300,300
+de-ber-01,104,10.104.0.0/16,65104,99,1,Berlin,hub,65100,wan1.hub.company.com,REDACTED,vti6,200,200,wan2.hub.company.com,REDACTED,vti7,300,300
+de-ber-02,105,10.105.0.0/16,65105,99,1,Berlin,hub,65100,wan1.hub.company.com,REDACTED,vti8,200,200,wan2.hub.company.com,REDACTED,vti9,300,300
+de-mun-01,106,10.106.0.0/16,65106,99,1,Munich,hub,65100,wan1.hub.company.com,REDACTED,vti10,200,200,wan2.hub.company.com,REDACTED,vti11,300,300
+ch-zur-01,107,10.107.0.0/16,65107,99,1,Zurich,hub,65100,wan1.hub.company.com,REDACTED,vti12,200,200,wan2.hub.company.com,REDACTED,vti13,300,300

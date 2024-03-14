@@ -1,0 +1,3 @@
+{
+  "ikev2-aes256-sha256-dh20-24h": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha256"}}}
+}

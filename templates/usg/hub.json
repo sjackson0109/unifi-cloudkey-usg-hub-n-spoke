@@ -1,0 +1,90 @@
+{
+  "system": {
+    "host-name": "{{ hub_sitename }}fw",
+    "offload": { "ipsec": "enable" },
+    "domain-name": "{{ domain_name }}",
+    "name-server": [ "1.1.1.1", "8.8.8.8" ],
+    "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
+    "time-zone": "Europe/London",
+    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } }, "host": { "{{ syslog_server }}:5514": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } } }
+  },
+  "service": {
+    "gui": { "older-ciphers": "disable" },
+    "dns": {
+      "forwarding": { "options": [ "host-record=unifi,{{ controller_vpn_address }}", "host-record=unifi.{{ domainname }},{{ controller_vpn_address }}" ] }
+    },
+    "nat": {
+      "5001": {
+        "description": "DNAT to UK01 Modality (PRE Local Subnet Changes)",
+        "type": "destination", "protocol": "tcp",
+        "inbound-interface": ["vtun0"],
+        "source": { "address": [ "194.138.39.16/29", "172.16.20.0/24"] },
+        "destination": { "address": ["10.70.1.20"], "port": "0" },
+        "inside-adddress": { "address": ["10.68.202.20"], "port": "0" },
+        "log": "enable"
+      }
+    }
+  },
+  "firewall": {
+    "modify": {
+      "VPN_Gateway": { "rule": { "2502": { "action": "modify", "protocol": "all", "modify": { "table": "5" } }} }
+    }
+  },
+  "vpn": {
+    "ipsec": {
+      "ipsec-interfaces": { "interface": [ "eth2", "eth3" ]},
+      "auto-firewall-nat-exclude": "enable",
+      "ike-group": "{{ ike_groups }}",
+      "esp-group": "{{ esp_groups }}",
+      "site-to-site": {
+        "peer": {
+          "{{ ipsec_tunnels }}"
+        }
+      }
+    }
+  },
+  "interfaces": {
+    "ethernet": {
+      "eth0": { "firewall": { "in": { "modify": "VPN_Gateway" } } },
+      "eth1": { "firewall": { "in": { "modify": "VPN_Gateway" } } }
+    },
+    "vti": {
+      "{{ vti_interfaces }}"
+    }
+  },
+  "policy": {
+    "prefix-list": {
+      "{{ remote_site }}in": {
+        "rule": {
+          "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" }
+        }
+      },
+      "{{ remote_site }}out": {
+        "rule": {
+          "10": { "action": "permit", "gt": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" }
+        }
+      }
+    },
+    "route-map": {
+      "{{ remote_site }}out": { "description": "Route Map OUTBOUND", "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "{{ remote_site }}out" } } } } } },
+      "{{ remote_site }}in" : { "description": "Route Map INBOUND" , "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "{{ remote_site }}in"  } } } } } }
+    }
+  },
+  "protocols": {
+    "static": {
+      "interface-route": {
+        "{{ interface_routes }}"
+      }
+    },
+    "bgp": {
+      "{{ remote_asn }}": {
+        "parameters": { "router-id": "10.100.0.1" },
+        "timers": { "holdtime": "10", "keepalive": "5" },
+        "network": [ "10.100.0.0/16" ],
+        "neighbor": {
+          "{{ bgp_neighbors }}"
+        }
+      }
+    }
+  }
+}

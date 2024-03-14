@@ -1,0 +1,9 @@
+{
+  "description": "{{ local_site }} to {{ remote_site }} tun1",
+  "authentication": {
+      "id": "@{{ local_site }}.tun1", "remote-id": "@{{ remote_site }}.tun1",
+      "mode": "pre-shared-secret", "pre-shared-secret": "{{ tun1_psk }}"
+  },
+  "connection-type": "initiate", "ike-group": "ikev2-aes256-sha256-dh20-24h", "ikev2-reauth": "inherit", "local-address": "!ADDRv4_eth3",
+  "vti": { "bind": "{{ tun1_vti }}", "esp-group": "esp-sha256-aes256-dh14-8h" }
+}
