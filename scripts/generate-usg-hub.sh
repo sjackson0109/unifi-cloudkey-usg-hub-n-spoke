@@ -83,43 +83,43 @@ while IFS=, read -ra row; do
 
     # Process vti_interfaces for each row in the sheet
     if [ "$total_rows" -ne "1" ] && [ "$row_number" -eq "1" ]; then
-        config=$(sed "s|\"{{ vti_interfaces }}\"|\"${local_site}.tun0\": $hub_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
-        config=$(sed "s|\"{{ vti_interfaces }}\"|      \"${local_site}.tun1\": $hub_vti1,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ vti_interfaces }}\"|\"{{ tun0_vti }}\": $hub_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ vti_interfaces }}\"|      \"{{ tun1_vti }}\": $hub_vti1,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
     else
         if [ "$row_number" -ne "$total_rows" ]; then
-            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"${local_site}.tun0\": $hub_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"${local_site}.tun1\": $hub_vti1,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"{{ tun0_vti }}\": $hub_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"{{ tun1_vti }}\": $hub_vti1,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
         else # Processing the last record, different formatting
-            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"${local_site}.tun0\": $hub_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"${local_site}.tun1\": $hub_vti1|g" <<< "$config")
+            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"{{ tun0_vti }}\": $hub_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ vti_interfaces }}\"|      \"{{ tun1_vti }}\": $hub_vti1|g" <<< "$config")
         fi
     fi
 
     # Process interface_routes for each row in the sheet
     if [ "$total_rows" -ne "1" ] && [ "$row_number" -eq "1" ]; then
-        config=$(sed "s|\"{{ interface_routes }}\"|\"169.254.${local_site}.0/30\":{ \"next-hop-interface\": \"${local_site}.tun0\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
-        config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.${local_site}.4/30\":{ \"next-hop-interface\": \"${local_site}.tun1\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ interface_routes }}\"|\"169.254.{{ local_octetid }}.0/30\":{ \"next-hop-interface\": \"{{ tun0_vti }}\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.{{ local_octetid }}.4/30\":{ \"next-hop-interface\": \"{{ tun1_vti }}\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
     else
         if [ "$row_number" -ne "$total_rows" ]; then
-            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.${local_site}.0/30\":{ \"next-hop-interface\": \"${local_site}.tun0\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.${local_site}.4/30\":{ \"next-hop-interface\": \"${local_site}.tun1\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.{{ local_octetid }}.0/30\":{ \"next-hop-interface\": \"{{ tun0_vti }}\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.{{ local_octetid }}.4/30\":{ \"next-hop-interface\": \"{{ tun1_vti }}\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
         else # Processing the last record, different formatting
-            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.${local_site}.0/30\":{ \"next-hop-interface\": \"${local_site}.tun0\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.${local_site}.4/30\":{ \"next-hop-interface\": \"${local_site}.tun1\" }|g" <<< "$config")
+            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.{{ local_octetid }}.0/30\":{ \"next-hop-interface\": \"{{ tun0_vti }}\" },\n\"{{ interface_routes }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ interface_routes }}\"|        \"169.254.{{ local_octetid }}.4/30\":{ \"next-hop-interface\": \"{{ tun1_vti }}\" }|g" <<< "$config")
         fi
     fi
 
     # Process bgp_neighbors for each row in the sheet
     if [ "$total_rows" -ne "1" ] && [ "$row_number" -eq "1" ]; then
-        config=$(sed "s|\"{{ bgp_neighbors }}\"|\"169.254.${local_octetid}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
-        config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ bgp_neighbors }}\"|\"169.254.{{ local_octetid }}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+        config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.{{ local_octetid }}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
     else
         if [ "$row_number" -ne "$total_rows" ]; then
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.{{ local_octetid }}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.{{ local_octetid }}.6\": $hub_bgp_neighbor1,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
         else # Processing the last record, different formatting
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
-            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.${local_octetid}.6\": $hub_bgp_neighbor1|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.{{ local_octetid }}.2\": $hub_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config")
+            config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.{{ local_octetid }}.6\": $hub_bgp_neighbor1|g" <<< "$config")
         fi
     fi
 

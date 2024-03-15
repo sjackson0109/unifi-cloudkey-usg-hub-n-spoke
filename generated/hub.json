@@ -49,18 +49,18 @@
         "eth1": { "firewall": { "in": { "modify": "VPN_Gateway" } } }
       },
       "vti": {
-        "uk-lon-01.tun0": { "description": "Static Route to BGP Peer uk-lon-01 on tun0", "address": [ "169.254.101.2/30" ], "mtu": "1436" },
-        "uk-lon-01.tun1": { "description": "Static Route to BGP Peer uk-lon-01 on tun1", "address": [ "169.254.101.6/30" ], "mtu": "1436" },
-        "uk-lon-02.tun0": { "description": "Static Route to BGP Peer uk-lon-02 on tun0", "address": [ "169.254.102.2/30" ], "mtu": "1436" },
-        "uk-lon-02.tun1": { "description": "Static Route to BGP Peer uk-lon-02 on tun1", "address": [ "169.254.102.6/30" ], "mtu": "1436" },
-        "fr-par-01.tun0": { "description": "Static Route to BGP Peer fr-par-01 on tun0", "address": [ "169.254.103.2/30" ], "mtu": "1436" },
-        "fr-par-01.tun1": { "description": "Static Route to BGP Peer fr-par-01 on tun1", "address": [ "169.254.103.6/30" ], "mtu": "1436" },
-        "de-ber-01.tun0": { "description": "Static Route to BGP Peer de-ber-01 on tun0", "address": [ "169.254.104.2/30" ], "mtu": "1436" },
-        "de-ber-01.tun1": { "description": "Static Route to BGP Peer de-ber-01 on tun1", "address": [ "169.254.104.6/30" ], "mtu": "1436" },
-        "de-ber-02.tun0": { "description": "Static Route to BGP Peer de-ber-02 on tun0", "address": [ "169.254.105.2/30" ], "mtu": "1436" },
-        "de-ber-02.tun1": { "description": "Static Route to BGP Peer de-ber-02 on tun1", "address": [ "169.254.105.6/30" ], "mtu": "1436" },
-        "de-mun-01.tun0": { "description": "Static Route to BGP Peer de-mun-01 on tun0", "address": [ "169.254.106.2/30" ], "mtu": "1436" },
-        "de-mun-01.tun1": { "description": "Static Route to BGP Peer de-mun-01 on tun1", "address": [ "169.254.106.6/30" ], "mtu": "1436" }
+        "vti0": { "description": "Static Route to BGP Peer uk-lon-01 on tun0", "address": [ "169.254.101.2/30" ], "mtu": "1436" },
+        "vti1": { "description": "Static Route to BGP Peer uk-lon-01 on tun1", "address": [ "169.254.101.6/30" ], "mtu": "1436" },
+        "vti2": { "description": "Static Route to BGP Peer uk-lon-02 on tun0", "address": [ "169.254.102.2/30" ], "mtu": "1436" },
+        "vti3": { "description": "Static Route to BGP Peer uk-lon-02 on tun1", "address": [ "169.254.102.6/30" ], "mtu": "1436" },
+        "vti4": { "description": "Static Route to BGP Peer fr-par-01 on tun0", "address": [ "169.254.103.2/30" ], "mtu": "1436" },
+        "vti5": { "description": "Static Route to BGP Peer fr-par-01 on tun1", "address": [ "169.254.103.6/30" ], "mtu": "1436" },
+        "vti6": { "description": "Static Route to BGP Peer de-ber-01 on tun0", "address": [ "169.254.104.2/30" ], "mtu": "1436" },
+        "vti7": { "description": "Static Route to BGP Peer de-ber-01 on tun1", "address": [ "169.254.104.6/30" ], "mtu": "1436" },
+        "vti8": { "description": "Static Route to BGP Peer de-ber-02 on tun0", "address": [ "169.254.105.2/30" ], "mtu": "1436" },
+        "vti9": { "description": "Static Route to BGP Peer de-ber-02 on tun1", "address": [ "169.254.105.6/30" ], "mtu": "1436" },
+        "vti10": { "description": "Static Route to BGP Peer de-mun-01 on tun0", "address": [ "169.254.106.2/30" ], "mtu": "1436" },
+        "vti11": { "description": "Static Route to BGP Peer de-mun-01 on tun1", "address": [ "169.254.106.6/30" ], "mtu": "1436" }
       }
     },
     "policy": {
@@ -84,18 +84,18 @@
     "protocols": {
       "static": {
         "interface-route": {
-          "169.254.uk-lon-01.0/30":{ "next-hop-interface": "uk-lon-01.tun0" },
-          "169.254.uk-lon-01.4/30":{ "next-hop-interface": "uk-lon-01.tun1" },
-          "169.254.uk-lon-02.0/30":{ "next-hop-interface": "uk-lon-02.tun0" },
-          "169.254.uk-lon-02.4/30":{ "next-hop-interface": "uk-lon-02.tun1" },
-          "169.254.fr-par-01.0/30":{ "next-hop-interface": "fr-par-01.tun0" },
-          "169.254.fr-par-01.4/30":{ "next-hop-interface": "fr-par-01.tun1" },
-          "169.254.de-ber-01.0/30":{ "next-hop-interface": "de-ber-01.tun0" },
-          "169.254.de-ber-01.4/30":{ "next-hop-interface": "de-ber-01.tun1" },
-          "169.254.de-ber-02.0/30":{ "next-hop-interface": "de-ber-02.tun0" },
-          "169.254.de-ber-02.4/30":{ "next-hop-interface": "de-ber-02.tun1" },
-          "169.254.de-mun-01.0/30":{ "next-hop-interface": "de-mun-01.tun0" },
-          "169.254.de-mun-01.4/30":{ "next-hop-interface": "de-mun-01.tun1" }
+          "169.254.101.0/30":{ "next-hop-interface": "vti0" },
+          "169.254.101.4/30":{ "next-hop-interface": "vti1" },
+          "169.254.102.0/30":{ "next-hop-interface": "vti2" },
+          "169.254.102.4/30":{ "next-hop-interface": "vti3" },
+          "169.254.103.0/30":{ "next-hop-interface": "vti4" },
+          "169.254.103.4/30":{ "next-hop-interface": "vti5" },
+          "169.254.104.0/30":{ "next-hop-interface": "vti6" },
+          "169.254.104.4/30":{ "next-hop-interface": "vti7" },
+          "169.254.105.0/30":{ "next-hop-interface": "vti8" },
+          "169.254.105.4/30":{ "next-hop-interface": "vti9" },
+          "169.254.106.0/30":{ "next-hop-interface": "vti10" },
+          "169.254.106.4/30":{ "next-hop-interface": "vti11" }
         }
       },
       "bgp": {
@@ -104,18 +104,18 @@
           "timers": { "holdtime": "10", "keepalive": "5" },
           "network": [ "10.70.0.0/24", "194.138.39.16/29" ],
           "neighbor": {
-            "169.254..2": { "remote-as": "65101", "description": "uk-lon-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
-            "169.254..6": { "remote-as": "65101", "description": "uk-lon-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
-            "169.254..2": { "remote-as": "65102", "description": "uk-lon-02.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
-            "169.254..6": { "remote-as": "65102", "description": "uk-lon-02.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
-            "169.254..2": { "remote-as": "65103", "description": "fr-par-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
-            "169.254..6": { "remote-as": "65103", "description": "fr-par-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
-            "169.254..2": { "remote-as": "65104", "description": "de-ber-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
-            "169.254..6": { "remote-as": "65104", "description": "de-ber-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
-            "169.254..2": { "remote-as": "65105", "description": "de-ber-02.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
-            "169.254..6": { "remote-as": "65105", "description": "de-ber-02.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
-            "169.254..2": { "remote-as": "65106", "description": "de-mun-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
-            "169.254..6": { "remote-as": "65106", "description": "de-mun-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" }
+            "169.254.101.2": { "remote-as": "65101", "description": "uk-lon-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254.101.6": { "remote-as": "65101", "description": "uk-lon-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254.102.2": { "remote-as": "65102", "description": "uk-lon-02.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254.102.6": { "remote-as": "65102", "description": "uk-lon-02.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254.103.2": { "remote-as": "65103", "description": "fr-par-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254.103.6": { "remote-as": "65103", "description": "fr-par-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254.104.2": { "remote-as": "65104", "description": "de-ber-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254.104.6": { "remote-as": "65104", "description": "de-ber-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254.105.2": { "remote-as": "65105", "description": "de-ber-02.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254.105.6": { "remote-as": "65105", "description": "de-ber-02.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" },
+            "169.254.106.2": { "remote-as": "65106", "description": "de-mun-01.tun0", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "200", "metric": "200", "soft-reconfiguration": "inbound" },
+            "169.254.106.6": { "remote-as": "65106", "description": "de-mun-01.tun1", "ebgp-multihop": "4", "route-map": { "import": "hubin", "export": "hubout" }, "weight": "300", "metric": "300", "soft-reconfiguration": "inbound" }
           }
         }
       }
