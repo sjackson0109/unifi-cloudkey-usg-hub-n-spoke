@@ -2,8 +2,9 @@
 # Purpose: Loop through a CSV data file and several nested JSON files to build a new Unifi config file (config.gateway.json).
 # Fundamentally, automate the entire configuration for a `HUB` of a Hub-n-Spoke network design.
 # Author: Simon Jackson / @sjackson0109
+# Code: https://github.com/sjackson0109/unifi-cloudkey-usg-hub-n-spoke
 # Created: 07/03/2024
-# Updated: 11/03/2024
+# Updated: 24/05/2024
 
 # Define template folder, output path, and other global variables
 template_folder="/root/templates/usg"
@@ -13,7 +14,7 @@ support="networking@company.com"
 domain_name="company.com"
 syslog_server="syslog.company.com"
 controller_vpn_address="unifi.company.local"
-hub_sitename="SITE"     # UPDATE THE NAME OF YOUR HUB SITE HERE
+hub_sitename="HUB"     # UPDATE THE NAME OF YOUR HUB SITE HERE
 
 # Read the hub JSON template files
 hub_main=$(<"${template_folder}/hub.json")
@@ -40,14 +41,15 @@ echo "# Processing file:                 #"
 config="$hub_main"
 
 # Escape special characters and remove line feeds and quotes for ike_groups, esp_groups, and ipsec_tunnels sections
-hub_ike_groups=$(tr -d '\n' < "$hub_ike_groups" | sed 's/"/\\"/g')
-hub_esp_groups=$(tr -d '\n' < "$hub_esp_groups" | sed 's/"/\\"/g')
-hub_ipsec_tun0=$(tr -d '\n' < "$hub_ipsec_tun0" | sed 's/"/\\"/g')
-hub_ipsec_tun1=$(tr -d '\n' < "$hub_ipsec_tun1" | sed 's/"/\\"/g')
-hub_vti0=$(tr -d '\n' < "$hub_vti0" | sed 's/"/\\"/g')
-hub_vti1=$(tr -d '\n' < "$hub_vti1" | sed 's/"/\\"/g')
-hub_bgp_neighbor0=$(tr -d '\n' < "$hub_bgp_neighbor0" | sed 's/"/\\"/g')
-hub_bgp_neighbor1=$(tr -d '\n' < "$hub_bgp_neighbor1" | sed 's/"/\\"/g')
+hub_ike_groups=$(printf "$hub_ike_groups" | tr -d '\n' | sed 's/"/\\"/g')
+hub_esp_groups=$(printf "$hub_esp_groups" | tr -d '\n' | sed 's/"/\\"/g')
+hub_ipsec_tun0=$(printf "$hub_ipsec_tun0" | tr -d '\n' | sed 's/"/\\"/g')
+hub_ipsec_tun1=$(printf "$hub_ipsec_tun1" | tr -d '\n' | sed 's/"/\\"/g')
+hub_vti0=$(printf "$hub_vti0" | tr -d '\n' | sed 's/"/\\"/g')
+hub_vti1=$(printf "$hub_vti1" | tr -d '\n' | sed 's/"/\\"/g')
+hub_bgp_neighbor0=$(printf "$hub_bgp_neighbor0" | tr -d '\n' | sed 's/"/\\"/g')
+hub_bgp_neighbor1=$(printf "$hub_bgp_neighbor1" | tr -d '\n' | sed 's/"/\\"/g')
+
 
 # Substitute ike_groups and esp_groups sections (ipsec_tunnels section is performed iteratively inside the while loop)
 config=$(sed "s|\"{{ ike_groups }}\"|$hub_ike_groups|g" <<< "$config")
@@ -137,7 +139,7 @@ while IFS=, read -ra row; do
     done
 
     # Process global variables
-    config=$(echo "$config" | \
+    config=$(printf "$config" | \
         sed "s/{{ hub_sitename }}/$hub_sitename/g" | \
         sed "s/{{ domain_name }}/$domain_name/g" | \
         sed "s/{{ syslog_server }}/$syslog_server/g" | \
@@ -151,6 +153,6 @@ done < <(tail -n +2 "$csv_file")
 
 echo "###################################"
 # Output JSON file
-echo "Output: ${output_folder}/${hub_sitename}.json"
-echo "$config" > "${output_folder}/${hub_sitename}.json"
+echo "Output: ${output_folder}/${hub_sitename}.config.gateway.json"
+printf "$config" > "${output_folder}/${hub_sitename}.config.gateway.json"
 echo "###################################"

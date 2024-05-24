@@ -6,22 +6,24 @@
     "name-server": [ "1.1.1.1", "8.8.8.8" ],
     "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
     "time-zone": "Europe/London",
-    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } }, "host": { "{{ syslog_server }}:5514": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } } }
+    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } }
   },
   "service": {
     "gui": { "older-ciphers": "disable" },
     "dns": {
-      "forwarding": { "options": [ "host-record=unifi,{{ controller_vpn_address }}", "host-record=unifi.{{ domainname }},{{ controller_vpn_address }}" ] }
+      "forwarding": { "options": [ "host-record=unifi,{{ controller_vpn_address }}" ] }
     }
   },
   "firewall": {
+    "all-ping": "enable",
+    "broadcast-ping": "enable",
     "modify": {
       "VPN_Gateway": { "rule": { "2502": { "action": "modify", "protocol": "all", "modify": { "table": "5" } }} }
     }
   },
   "vpn": {
     "ipsec": {
-      "ipsec-interfaces": { "interface": [ "eth2", "eth3" ]},
+      "ipsec-interfaces": { "interface": [ "eth2", "eth3" ] },
       "auto-firewall-nat-exclude": "enable",
       "ike-group": "{{ ike_groups }}",
       "esp-group": "{{ esp_groups }}",
@@ -45,12 +47,12 @@
     "prefix-list": {
       "{{ remote_site }}in": {
         "rule": {
-          "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" }
+          "10": { "action": "permit", "le": "30", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced, up-to /30 bit masks" }
         }
       },
       "{{ remote_site }}out": {
         "rule": {
-          "10": { "action": "permit", "gt": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" }
+          "10": { "action": "permit", "ge": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" }
         }
       }
     },
@@ -67,9 +69,9 @@
     },
     "bgp": {
       "{{ remote_asn }}": {
-        "parameters": { "router-id": "10.100.0.1" },
+        "parameters": { "router-id": "10.0.0.1" },
         "timers": { "holdtime": "10", "keepalive": "5" },
-        "network": [ "10.100.0.0/16" ],
+        "network": [ "10.0.0.0/16" ],
         "neighbor": {
           "{{ bgp_neighbors }}"
         }

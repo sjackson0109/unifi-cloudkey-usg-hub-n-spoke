@@ -6,7 +6,7 @@
     "name-server": [ "1.1.1.1", "8.8.8.8" ],
     "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
     "time-zone": "Europe/London",
-    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } }, "host": { "{{ syslog_server }}:5514": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } } }
+    "syslog": { "global": { "facility": { "all": { "level": "notice" }, "protocols": { "level": "debug" } } } }
   },
   "service": {
     "dns": {
@@ -63,7 +63,7 @@
   "policy": {
     "prefix-list": {
       "{{ local_site }}in": { "rule": { "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" } }},
-      "{{ local_site }}out": { "rule": { "10": { "action": "permit", "gt": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" } }}
+      "{{ local_site }}out": { "rule": { "10": { "action": "permit", "ge": "8", "prefix": "10.0.0.0/0", "description": "PERMIT all private 10.0.0.0/8 or larger subnet size" } }}
     },
     "route-map": {
       "{{ local_site }}out": { "description": "Route Map OUTBOUND", "rule": { "1": { "action": "permit", "match": { "ip": { "address": { "prefix-list": "{{ local_site }}out" } } } } } },
@@ -79,7 +79,7 @@
     },
     "bgp": {
       "{{ local_asn }}": {
-        "parameters": { "router-id": "10.{{ local_octetid }}.0.1" },
+        "parameters": { "router-id": "10.0.{{ local_octetid }}.2" },
         "timers": { "holdtime": "10", "keepalive": "5" },
         "network": [ "{{ local_subnets }}" ],
         "neighbor": {

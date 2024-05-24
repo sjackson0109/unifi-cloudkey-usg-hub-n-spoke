@@ -1,25 +1,10 @@
-{
-  "ikev2-aes128-sha1-24h-dh16": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"16","encryption":"aes128","hash":"sha1"}}},
-  "ikev2-aes128-sha1-24h-dh20": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes128","hash":"sha1"}}},
-  "ikev2-aes128-sha1-24h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"22","encryption":"aes128","hash":"sha1"}}},
-  "ikev2-aes128-sha1-8h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"22","encryption":"aes128","hash":"sha1"}}},
-  "ikev2-aes128-sha1-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes128","hash":"sha1"}}},
-  "ikev2-aes128-sha256-24h-dh18": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"18","encryption":"aes128","hash":"sha256"}}},
-  "ikev2-aes128-sha256-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes128","hash":"sha256"}}},
-  "ikev2-aes256-sha1-24h-dh16": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"16","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-24h-dh18": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"18","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-24h-dh20": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-24h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"22","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-8h-dh16": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"16","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-8h-dh18": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"18","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-8h-dh20": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-8h-dh22": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"22","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha1-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"no","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes256","hash":"sha1"}}},
-  "ikev2-aes256-sha256-24h-dh18": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"18","encryption":"aes256","hash":"sha256"}}},
-  "ikev2-aes256-sha256-24h-dh24": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},
-  "ikev2-aes256-sha256-8h-dh16": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"16","encryption":"aes256","hash":"sha256"}}},
-  "ikev2-aes256-sha256-8h-dh20": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha256"}}},
-  "ikev2-aes256-sha256-8h-dh22": {"dead-peer-detection":{"action":"restart","interval":"30","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"22","encryption":"aes256","hash":"sha256"}}},
-  "ikev2-aes256-sha256-8h-dh24": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"28800","proposal":{"1":{"dh-group":"24","encryption":"aes256","hash":"sha256"}}},
-  "ikev2-aes256-sha256-dh20-24h": {"dead-peer-detection":{"action":"restart","interval":"60","timeout":"60"},"ikev2-reauth":"yes","key-exchange":"ikev2","lifetime":"86400","proposal":{"1":{"dh-group":"20","encryption":"aes256","hash":"sha256"}}}
-}
+{ "ikev2-aes256-sha256-dh20-24h": {
+  "ikev2-reauth": "yes", "key-exchange": "ikev2", "lifetime": "86400",
+  "dead-peer-detection":{ "action": "restart", "interval": "60", "timeout": "60" },
+  "proposal": { "1": { "dh-group": "20", "encryption": "aes256", "hash": "sha256"} }
+  }, 
+  "siemens-ike-group": {
+   "key-exchange": "ikev2", "ikev2-reauth": "yes", "lifetime": "86400",
+   "proposal": { "1": { "dh-group": "20", "encryption": "aes256", "hash": "sha256" } }
+   } 
+ }

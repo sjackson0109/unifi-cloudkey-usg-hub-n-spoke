@@ -1,3 +1,4 @@
-{
-  "esp-sha256-aes256-dh14-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}}
+{ "esp-sha256-aes256-dh14-8h": { "compression": "enable", "lifetime": "28800", "mode": "tunnel", "pfs": "dh-group14",
+ "proposal": { "1": { "encryption": "aes256", "hash": "sha256" } }
+ } 
 }

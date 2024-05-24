@@ -1,15 +1,9 @@
-{
-  "esp-sha256-aes256-dh15-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},
-  "esp-sha256-aes256-dh16-8h": {"compression":"disable","lifetime":"28800","mode":"transport","pfs":"dh-group16","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},
-  "esp-sha256-aes128-dh14-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes128","hash":"sha256"}}},
-  "esp-sha256-aes128-dh15-8h": {"compression":"disable","lifetime":"28800","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes128","hash":"sha256"}}},
-  "esp-sha1-aes256-dh14-8h": {"compression":"disable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha1"}}},
-  "esp-sha1-aes256-dh16-8h": {"compression":"enable","lifetime":"28800","mode":"transport","pfs":"dh-group16","proposal":{"1":{"encryption":"aes256","hash":"sha1"}}},
-  "esp-sha1-aes128-dh15-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes128","hash":"sha1"}}},
-  "esp-sha1-aes128-dh16-8h": {"compression":"disable","lifetime":"28800","mode":"tunnel","pfs":"dh-group16","proposal":{"1":{"encryption":"aes128","hash":"sha1"}}},
-  "esp-sha256-aes256-dh14-4h": {"compression":"enable","lifetime":"14400","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},
-  "esp-sha256-aes256-dh14-8h": {"compression":"enable","lifetime":"28800","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},
-  "esp-sha256-aes256-dh16-12h": {"compression":"disable","lifetime":"43200","mode":"transport","pfs":"dh-group16","proposal":{"1":{"encryption":"aes256","hash":"sha256"}}},
-  "esp-sha1-aes256-dh15-6h": {"compression":"disable","lifetime":"21600","mode":"tunnel","pfs":"dh-group15","proposal":{"1":{"encryption":"aes256","hash":"sha1"}}},
-  "esp-sha1-aes128-dh14-10h": {"compression":"enable","lifetime":"36000","mode":"tunnel","pfs":"dh-group14","proposal":{"1":{"encryption":"aes128","hash":"sha1"}}}
-}
+{ "esp-sha256-aes256-dh14-8h": {
+  "compression": "enable", "lifetime": "28800", "mode": "tunnel", "pfs": "dh-group14",
+  "proposal": { "1": { "encryption": "aes256", "hash": "sha256" } }
+  }, 
+  "siemens-esp-group": {
+  "compression": "enable", "lifetime": "3600", "mode": "tunnel", "pfs": "dh-group20",
+  "proposal": { "1": { "encryption": "aes256", "hash": "sha256" } }
+  } 
+ } 
