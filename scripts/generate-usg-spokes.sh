@@ -53,8 +53,8 @@ config=$(sed "s|\"{{ esp_groups }}\"|$spokes_esp_groups|g" <<< "$config" )
 config=$(sed "s|\"{{ ipsec_tunnels }}\"|\"212.161.51.180\": $spokes_ipsec_tun0,\n\"{{ ipsec_tunnels }}\"|g" <<< "$config" )  
 config=$(sed "s|\"{{ ipsec_tunnels }}\"|          \"141.0.154.220\":  $spokes_ipsec_tun1|g" <<< "$config" )
 
-config=$(sed "s|\"{{ vti_interfaces }}\"|\"{{ tun0_vti }}\": $spokes_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config" )  
-config=$(sed "s|\"{{ vti_interfaces }}\"|      \"{{ tun1_vti }}\": $spokes_vti1|g" <<< "$config" )  
+config=$(sed "s|\"{{ vti_interfaces }}\"|\"vti0\": $spokes_vti0,\n\"{{ vti_interfaces }}\"|g" <<< "$config" )  
+config=$(sed "s|\"{{ vti_interfaces }}\"|      \"vti1\": $spokes_vti1|g" <<< "$config" )  
 
 config=$(sed "s|\"{{ bgp_neighbors }}\"|\"169.254.{{ local_octetid }}.1\": $spokes_bgp_neighbor0,\n\"{{ bgp_neighbors }}\"|g" <<< "$config" )  
 config=$(sed "s|\"{{ bgp_neighbors }}\"|          \"169.254.{{ local_octetid }}.5\": $spokes_bgp_neighbor1|g" <<< "$config" )
@@ -98,8 +98,8 @@ while IFS=, read -r -a row; do
     done
      local_site=$(sed 's/"//g' <<< "${local_site}")
     # Output JSON file
-    echo "Output: ${output_path}/${local_site}.config.gateway.json"
-    printf "$tempconfig" > "${output_path}/${local_site}.config.gateway.json"
+    echo "Output: ${output_path}/${local_site}/config.gateway.json"
+    printf "$tempconfig" > "${output_path}/${local_site}/config.gateway.json"
 
     # Increment the row number
     ((row_number++))
