@@ -1,7 +1,7 @@
 {
   "system": {
     "host-name": "{{ local_site }}fw",
-    "offload": { "ipsec": "enable" },
+    "offload": { "ipsec": "disable" },
     "domain-name": "{{ domain_name }}",
     "name-server": [ "1.1.1.1", "8.8.8.8" ],
     "ntp": { "server": [ "0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org" ]},
@@ -73,13 +73,13 @@
   "protocols": {
     "static": {
       "interface-route": {
-        "169.254.{{ local_octetid }}.0/30": { "next-hop-interface": "{{ tun0_vti }}" },
-        "169.254.{{ local_octetid }}.4/30": { "next-hop-interface": "{{ tun1_vti }}" }
+        "169.254.{{ local_octetid }}.0/30": { "next-hop-interface": "vti0" },
+        "169.254.{{ local_octetid }}.4/30": { "next-hop-interface": "vti1" }
       }
     },
     "bgp": {
       "{{ local_asn }}": {
-        "parameters": { "router-id": "10.0.{{ local_octetid }}.2" },
+        "parameters": { "router-id": "10.70.{{ local_octetid }}.1" },
         "timers": { "holdtime": "10", "keepalive": "5" },
         "network": [ "{{ local_subnets }}" ],
         "neighbor": {
