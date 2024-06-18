@@ -40,26 +40,6 @@
       "{{ vti_interfaces }}"
     }
   },
-  "load-balance": {
-    "group": {
-      "wan_failover": {
-        "flush-on-active": "enable",
-        "lb-local-metric-change": "disable",
-        "lb-local": "disable",
-        "interface": {
-          "eth2": {
-            "route-test": { "type": { "ping": { "target": "1.1.1.1" }, "initial-delay": "30", "interval": "30"} },
-            "count": { "failure": "3", "success": "3" }, "weight": "{{ eth2_percent }}"
-          },
-          "eth3": {
-            "route-test": { "type": { "ping": { "target": "8.8.8.8" }, "initial-delay": "30", "interval": "30"} },
-            "count": { "failure": "3", "success": "3" }, "weight": "{{ eth3_percent }}"
-          }
-        },
-        "sticky": { "dest-addr": "enable", "dest-port": "enable", "source-addr": "disable" }
-      }
-    }
-  },
   "policy": {
     "prefix-list": {
       "{{ local_site }}in": { "rule": { "10": { "action": "permit", "le": "32", "prefix": "0.0.0.0/0", "description": "PERMIT all routes announced" } }},
